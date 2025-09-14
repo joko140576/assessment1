@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplikasi Alarm Assessment</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .top-container {
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      background: #2c3e50;
+      color: white;
+    }
+    .digital-clock {
+      font-size: 32px;
+      font-weight: bold;
+    }
+    .main-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap; /* Supaya responsif */
+      margin: 20px;
+      width: 95%;
+    }
+    .container {
+      flex: 1;
+      min-width: 350px;
+      max-width: 400px;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    .info-box {
+      margin: 15px 0;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: #fafafa;
+    }
+    .token {
+      display: none;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #e74c3c;
+    }
+    .btn {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    .btn-token {
+      background: #3498db;
+      color: white;
+    }
+    .btn-timer {
+      background: #e74c3c;
+      color: white;
+    }
+    .timer-display {
+      font-size: 26px;
+      font-weight: bold;
+      color: #27ae60;
+      margin-top: 10px;
+      text-align: center;
+    }
+    #alertBox {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      border: 2px solid #e74c3c;
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      color: #e74c3c;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+    #alertBox button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- Jam digital di atas -->
+  <div class="top-container">
+    <div class="digital-clock" id="digitalClock">00:00:00</div>
+  </div>
+
+  <!-- Dua layar berdampingan -->
+  <div class="main-container">
+    <div class="container">
+      <h2>Soal Assessment 1</h2>
+      <div class="info-box">
+        <p>TKD Test Kemampuan Dasar ( 65 Soal )</p>
+        <ul>
+          <li>Soal SOP</li>
+          <li>Soal Tupoksi</li>
+          <li>Soal Budaya Perusahaan</li>
+        </ul>
+        <p>Silakan ke link soal: <a href="https://forms.gle/Kc9dWRLebnN7T5ZD7" target="_blank">https://forms.gle/Kc9dWRLebnN7T5ZD7</a></p>
+        <p>Token akan kami buka jika semua peserta sudah siap!</p>
+        <button class="btn btn-token" onclick="showToken(1)">Klik Token</button>
+        <p id="token1" class="token">siap2025</p>
+        <p>Waktu: 30 menit</p>
+        <button class="btn btn-timer" onclick="startTimer(30, 'timer1')">Setel Alarm</button>
+        <div id="timer1" class="timer-display">00:00</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>Soal Assessment 2</h2>
+      <div class="info-box">
+        <p>Materi Leadership Competency Skills ( 60 Soal ) </p>
+        <ul>
+          <li>Customer fokus</li>
+          <li>Driving Execution</li>
+          <li>Developing  Organization Capabilities</li>
+          <li>Managing Diversity</li>
+        </ul>
+        <p>Silakan ke link soal: <a href="https://forms.gle/4TpueNos1Fm6JfRP7" target="_blank">https://forms.gle/4TpueNos1Fm6JfRP7</a></p>
+        <p>Token akan kami buka jika semua peserta sudah siap!</p>
+        <button class="btn btn-token" onclick="showToken(2)">Klik Token</button>
+        <p id="token2" class="token">ssibisa</p>
+        <p>Waktu: 25 menit</p>
+        <button class="btn btn-timer" onclick="startTimer(20, 'timer2')">Setel Alarm</button>
+        <div id="timer2" class="timer-display">00:00</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alert -->
+  <div id="alertBox">
+    <p>⏰ Waktu habis !!</p>
+    <button onclick="closeAlert()">OK</button>
+  </div>
+
+  <!-- Suara alarm -->
+  <audio id="alarmSound">
+    <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
+  </audio>
+
+  <script>
+    // Jam digital realtime
+    function updateClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString();
+      document.getElementById("digitalClock").innerText = time;
+    }
+    setInterval(updateClock, 1000);
+
+    // Show token
+    function showToken(id) {
+      document.getElementById("token" + id).style.display = "block";
+    }
+
+    // Timer
+    let timers = {};
+    function startTimer(minutes, elementId) {
+      if (timers[elementId]) clearInterval(timers[elementId]);
+      let time = minutes * 60;
+      let display = document.getElementById(elementId);
+
+      timers[elementId] = setInterval(() => {
+        let m = Math.floor(time / 60);
+        let s = time % 60;
+        display.textContent = `${m}:${s < 10 ? "0" : ""}${s}`;
+        if (time <= 0) {
+          clearInterval(timers[elementId]);
+          showAlert();
+        }
+        time--;
+      }, 1000);
+    }
+
+    // Alert dengan suara
+    function showAlert() {
+      document.getElementById("alertBox").style.display = "block";
+      document.getElementById("alarmSound").play();
+    }
+    function closeAlert() {
+      document.getElementById("alertBox").style.display = "none";
+      document.getElementById("alarmSound").pause();
+      document.getElementById("alarmSound").currentTime = 0;
+    }
+  </script>
+</body>
+</html>
