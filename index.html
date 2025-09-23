@@ -33,16 +33,16 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      gap: 20px;
+      gap: 10px;
       flex-wrap: wrap;
-      margin: 20px;
+      margin: 10px;
       width: 95%;
     }
 
     .container {
       flex: 1;
-      min-width: 350px;
-      max-width: 400px;
+      min-width: 250px;
+      max-width: 350px;
       padding: 25px;
       background: white;
       border-radius: 16px;
@@ -68,12 +68,12 @@
     }
 
     .btn {
-      padding: 12px 18px;
+      padding: 10px 15px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      margin-top: 12px;
-      font-size: 15px;
+      margin-top: 8px;
+      font-size: 14px;
       font-weight: bold;
       transition: 0.3s;
     }
@@ -87,6 +87,10 @@
     }
     .btn-timer {
       background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: white;
+    }
+    .btn-copy {
+      background: linear-gradient(135deg, #16a085, #1abc9c);
       color: white;
     }
 
@@ -196,25 +200,7 @@
   <div class="main-container">
     <!-- Assessment 1 -->
     <div class="container">
-      <h2>Soal TKD </h2>
-      <div class="info-box">
-        <p>Test Kemampuan Dasar (60 Soal)</p>
-        <ul>
-          <li>Soal SOP</li>
-          <li>Soal Tupoksi</li>
-          <li>Soal Budaya Perusahaan</li>
-        </ul>
-        <p>Link Soal:</p>
-        <p style="color: blueviolet;font-weight: bold;">https://forms.gle/Kc9dWRLebnN7T5ZD7</p>
-        <button class="btn btn-token" onclick="showTokenModal('🔑 siap2025')">Token</button>
-        <p>Waktu: 30 menit</p>
-        <button class="btn btn-timer" onclick="startTimer(30)">⏰ Setel Alarm</button>
-      </div>
-    </div>
-
-    <!-- Assessment 2 -->
-    <div class="container">
-      <h2>Soal TMLS</h2>
+      <h2>Soal TLMS</h2>
       <div class="info-box">
         <p>Test Leadership Management Skills (40 Soal)</p>
         <ul>
@@ -224,10 +210,34 @@
           <li>Managing Diversity</li>
         </ul>
         <p>Link Soal:</p>
-        <p style="color: blueviolet;font-weight: bold;">https://forms.gle/4TpueNos1Fm6JfRP7</p>
-        <button class="btn btn-token" onclick="showTokenModal('🔑 ssibisa')">Token</button>
+        <p style="color: blueviolet;font-weight: bold;word-wrap: break-word;">
+          https://forms.gle/4TpueNos1Fm6JfRP7
+        </p>
+        <button class="btn btn-copy" onclick="copyLink('https://forms.gle/4TpueNos1Fm6JfRP7')">📋 Copy Link</button>
+        <button class="btn btn-token" onclick="showTokenModal('🔑 ssibisa')">Token</button>     
         <p>Waktu: 60 menit</p>
         <button class="btn btn-timer" onclick="startTimer(60)">⏰ Setel Alarm</button>
+      </div>
+    </div>
+
+    <!-- Assessment 2 -->
+    <div class="container">
+      <h2>Soal TKD</h2>
+      <div class="info-box">
+        <p>Test Kemampuan Dasar (60 Soal)</p>
+        <ul>
+          <li>Soal SOP</li>
+          <li>Soal Tupoksi</li>
+          <li>Soal Budaya Perusahaan</li>
+        </ul>
+        <p>Link Soal:</p>
+        <p style="color: blueviolet;font-weight: bold;word-wrap: break-word;">
+          https://forms.gle/Kc9dWRLebnN7T5ZD7
+        </p>
+        <button class="btn btn-copy" onclick="copyLink('https://forms.gle/Kc9dWRLebnN7T5ZD7')">📋 Copy Link</button>
+        <button class="btn btn-token" onclick="showTokenModal('🔑 siap2025')">Token</button>        
+        <p>Waktu: 30 menit</p>
+        <button class="btn btn-timer" onclick="startTimer(30)">⏰ Setel Alarm</button>
       </div>
     </div>
 
@@ -242,10 +252,26 @@
           <li>Kemampuan berpikir kritis</li>
         </ul>
         <p>Link Soal:</p>
-        <p style="color: blueviolet;font-weight: bold;">https://forms.gle/wSEsW6NYV4kQF6PB7</p>
-        <button class="btn btn-token" onclick="showTokenModal('🔑 aci2025')">Token</button>
+        <p style="color: blueviolet;font-weight: bold;word-wrap: break-word;">
+          https://forms.gle/wSEsW6NYV4kQF6PB7
+        </p>
+        <button class="btn btn-copy" onclick="copyLink('https://forms.gle/wSEsW6NYV4kQF6PB7')">📋 Copy Link</button>
+        <button class="btn btn-token" onclick="showTokenModal('🔑 aci2025')">Token</button>        
         <p>Waktu: 45 menit</p>
         <button class="btn btn-timer" onclick="startTimer(45)">⏰ Setel Alarm</button>
+      </div>
+    </div>
+
+    <!-- FORM 360 -->
+    <div class="container">
+      <h2>Form 360</h2>
+      <div class="info-box">
+        <p>Mengisi Form 360 Degree</p>
+        <p>Link Form:</p>
+        <p style="color: blueviolet;font-weight: bold;word-wrap: break-word;">
+          https://forms.gle/XEkudavxgMUyjjuD8
+        </p>
+        <button class="btn btn-copy" onclick="copyLink('https://forms.gle/XEkudavxgMUyjjuD8')">📋 Copy Link</button>
       </div>
     </div>
   </div>
@@ -328,6 +354,15 @@
       document.getElementById("alertBox").style.display = "none";
       document.getElementById("alarmSound").pause();
       document.getElementById("alarmSound").currentTime = 0;
+    }
+
+    // Copy link ke clipboard
+    function copyLink(link) {
+      navigator.clipboard.writeText(link).then(() => {
+        alert("✅ Link berhasil disalin:\n" + link);
+      }).catch(err => {
+        alert("❌ Gagal menyalin link: " + err);
+      });
     }
   </script>
 </body>
